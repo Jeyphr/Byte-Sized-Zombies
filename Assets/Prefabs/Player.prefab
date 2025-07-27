@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3675844472653637603}
   - component: {fileID: 2733429768138521529}
   - component: {fileID: 7367484961718458066}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Jam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 2186201631323032159}
   - component: {fileID: 8835376889273037808}
   - component: {fileID: 2610363838812301246}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Gameplay Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 4950432977508988802}
   - component: {fileID: 2154825984276973518}
   - component: {fileID: 4482441269073331638}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8018652221405914845}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 8150457991680961162}
   - component: {fileID: 1781685674122688316}
   - component: {fileID: 6557820300445800513}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Center Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -812,7 +812,7 @@ GameObject:
   - component: {fileID: 3680457700236070847}
   - component: {fileID: 4558036204315339417}
   - component: {fileID: 1175364771276871753}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Full Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
