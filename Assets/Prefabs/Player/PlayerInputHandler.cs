@@ -16,16 +16,19 @@ public class PlayerInputHandler : MonoBehaviour
     public string look = "Look";
     public string jump = "Jump";
     public string crouch = "Crouch";
+    public string walk = "Walk";
 
     private InputAction moveAction;
     private InputAction lookAction;
     private InputAction jumpAction;
     private InputAction crouchAction;
+    private InputAction walkAction;
 
     public Vector2 MoveInput { get; private set; }
     public Vector2 LookInput { get; private set; }
     public bool IsJumping { get; private set; }
     public bool IsCrouching { get; private set; }
+    public bool IsWalking { get; private set; }
 
     //Singleton Stuff
     public static PlayerInputHandler Instance { get; private set; }
@@ -42,6 +45,7 @@ public class PlayerInputHandler : MonoBehaviour
         lookAction = playerControls.FindActionMap(actionMapName).FindAction(look);
         jumpAction = playerControls.FindActionMap(actionMapName).FindAction(jump);
         crouchAction = playerControls.FindActionMap(actionMapName).FindAction(crouch);
+        walkAction = playerControls.FindActionMap(actionMapName).FindAction(walk);
 
         RegisterInputActions();
     }
@@ -55,9 +59,11 @@ public class PlayerInputHandler : MonoBehaviour
 
         jumpAction.performed += context => IsJumping = true;
         crouchAction.performed += context => IsCrouching = true;
+        walkAction.performed += context => IsWalking = true;
+
         jumpAction.canceled += context => IsJumping = false;
         crouchAction.canceled += context => IsCrouching = false;
-        
+        walkAction.canceled += context => IsWalking  = false;
     }
 
 
@@ -68,6 +74,7 @@ public class PlayerInputHandler : MonoBehaviour
         lookAction.Enable();
         jumpAction.Enable();
         crouchAction.Enable();
+        walkAction.Enable();
 
     }
 
@@ -77,5 +84,6 @@ public class PlayerInputHandler : MonoBehaviour
         lookAction.Disable();
         jumpAction.Disable();
         crouchAction.Disable();
+        walkAction.Disable();
     }
 }
