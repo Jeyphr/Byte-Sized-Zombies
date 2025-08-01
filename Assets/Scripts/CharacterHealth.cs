@@ -1,4 +1,6 @@
+using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -12,8 +14,10 @@ public class CharacterHealth : MonoBehaviour
 
     [Header("Health Behaviours")]
     public bool isInvulnerable;
+    public bool canSavingThrow;
     public bool canRegenerate;
     public bool isDead;
+    private bool regenerating;
 
     [Header("Object References")]
     public GameObject character;
@@ -55,16 +59,29 @@ public class CharacterHealth : MonoBehaviour
     /// <summary>
     /// This is where the fun begins!
     /// </summary>
-    public void TakeDamage(float damage)
+
+    public void TakeHit()
     {
         if (isInvulnerable)
         {
             return;
         }
 
+        TakeDamage(1f);
+
+        if (!canRegenerate || regenerating)
+        {
+            return;
+        }
+
+        StartCoroutine(regenerateHealth());
+    }
+   
+    public void TakeDamage(float damage)
+    {
         //looks messy, will probably fix later
         //saving throw mechanic
-        if ((damage >= maxHealth) && (health >= (maxHealth / 2)))
+        if ((damage >= maxHealth) && (health >= (maxHealth / 2)) && canSavingThrow)
         {
             health = 1;
             return;
@@ -86,7 +103,18 @@ public class CharacterHealth : MonoBehaviour
     }
     #endregion
 
-
+    private IEnumerator regenerateHealth()
+    {
+        regenerating = true;
+        yield return new WaitForSeconds(regenDelay);
+        while (health < maxHealth)
+        {
+            HealDamage(regenAmount);
+            yield return new WaitForSeconds(1);
+        }
+        regenerating = false;
+        StopCoroutine(regenerateHealth());
+    }
 
 
 

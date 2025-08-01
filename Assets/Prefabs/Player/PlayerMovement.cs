@@ -23,9 +23,9 @@ public class PlayerMovement : MonoBehaviour
 
 
     [Header("Object References")]
-    private Camera playerCamera;
-    private CharacterController playerController;
-    private PlayerInputHandler iHandler;
+    public Camera playerCamera;
+    public CharacterController playerController;
+    public PlayerInputHandler iHandler;
 
     //hiddenvars
     private Vector3 currentMovement;
@@ -43,8 +43,11 @@ public class PlayerMovement : MonoBehaviour
     {
         playerController = GetComponent<CharacterController>();
         playerCamera = Camera.main;
-        iHandler = PlayerInputHandler.Instance;
+        iHandler = FindAnyObjectByType<PlayerInputHandler>();
+
+        playerCamera.fieldOfView = fov;
     }
+
     void Update()
     {
         if (!updatePlayer) { return; }
