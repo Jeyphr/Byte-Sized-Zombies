@@ -380,6 +380,7 @@ Transform:
   - {fileID: 1996979935}
   - {fileID: 825666390}
   - {fileID: 1101392293}
+  - {fileID: 1644515362}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &598095770
@@ -607,6 +608,57 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
+--- !u!1 &1644515361
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1644515362}
+  - component: {fileID: 1644515363}
+  m_Layer: 0
+  m_Name: Utilities
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1644515362
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644515361}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 437991285}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1644515363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644515361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0828ec27f8b90bc4eba6831770685b3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerControls: {fileID: -944628639613478452, guid: d37907a9da6149e45a9ad16892241b10, type: 3}
+  actionMapName: Player
+  move: Move
+  look: Look
+  jump: Jump
+  crouch: Crouch
+  walk: Walk
 --- !u!1 &1996979934
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,8 +838,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 91759896530389195, guid: 03c851e330d696a4da7a704a15639195, type: 3}
+      propertyPath: hSens
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 91759896530389195, guid: 03c851e330d696a4da7a704a15639195, type: 3}
+      propertyPath: vSens
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 91759896530389195, guid: 03c851e330d696a4da7a704a15639195, type: 3}
+      propertyPath: iHandler
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 91759896530389195, guid: 03c851e330d696a4da7a704a15639195, type: 3}
       propertyPath: jumpPower
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 91759896530389195, guid: 03c851e330d696a4da7a704a15639195, type: 3}
+      propertyPath: playerFrozen
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 91759896530389195, guid: 03c851e330d696a4da7a704a15639195, type: 3}
       propertyPath: movementSpeed
@@ -877,7 +945,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1149458645741371495, guid: 03c851e330d696a4da7a704a15639195, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3840816709666558943, guid: 03c851e330d696a4da7a704a15639195, type: 3}

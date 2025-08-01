@@ -295,7 +295,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5884509203297954815}
   - component: {fileID: 91759896530389195}
-  - component: {fileID: 1149458645741371495}
   - component: {fileID: 955818146637741672}
   m_Layer: 0
   m_Name: Player
@@ -345,26 +344,7 @@ MonoBehaviour:
   pCam: {fileID: 0}
   pInput: {fileID: 0}
   pController: {fileID: 955818146637741672}
-  iHandler: {fileID: 1149458645741371495}
---- !u!114 &1149458645741371495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7043048184720765226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0828ec27f8b90bc4eba6831770685b3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerControls: {fileID: -944628639613478452, guid: d37907a9da6149e45a9ad16892241b10, type: 3}
-  actionMapName: Player
-  move: Move
-  look: Look
-  jump: Jump
-  crouch: Crouch
-  walk: Walk
+  iHandler: {fileID: 0}
 --- !u!143 &955818146637741672
 CharacterController:
   m_ObjectHideFlags: 0
