@@ -17,18 +17,21 @@ public class PlayerInputHandler : MonoBehaviour
     public string jump = "Jump";
     public string crouch = "Crouch";
     public string walk = "Walk";
+    public string paused = "Pause";
 
     private InputAction moveAction;
     private InputAction lookAction;
     private InputAction jumpAction;
     private InputAction crouchAction;
     private InputAction walkAction;
+    private InputAction pauseAction;
 
     public Vector2 MoveInput { get; private set; }
     public Vector2 LookInput { get; private set; }
     public bool IsJumping { get; private set; }
     public bool IsCrouching { get; private set; }
     public bool IsWalking { get; private set; }
+    public bool IsPaused { get; private set; }
 
     //Singleton Stuff
     public static PlayerInputHandler Instance { get; private set; }
@@ -46,6 +49,7 @@ public class PlayerInputHandler : MonoBehaviour
         jumpAction = playerControls.FindActionMap(actionMapName).FindAction(jump);
         crouchAction = playerControls.FindActionMap(actionMapName).FindAction(crouch);
         walkAction = playerControls.FindActionMap(actionMapName).FindAction(walk);
+        pauseAction = playerControls.FindActionMap(actionMapName).FindAction(paused);
 
         RegisterInputActions();
     }
@@ -60,10 +64,12 @@ public class PlayerInputHandler : MonoBehaviour
         jumpAction.performed += context => IsJumping = true;
         crouchAction.performed += context => IsCrouching = true;
         walkAction.performed += context => IsWalking = true;
+        pauseAction.performed += context => IsPaused = true;
 
         jumpAction.canceled += context => IsJumping = false;
         crouchAction.canceled += context => IsCrouching = false;
-        walkAction.canceled += context => IsWalking  = false;
+        walkAction.canceled += context => IsWalking = false;
+        pauseAction.canceled += context => IsPaused = false;
     }
 
 
@@ -75,6 +81,7 @@ public class PlayerInputHandler : MonoBehaviour
         jumpAction.Enable();
         crouchAction.Enable();
         walkAction.Enable();
+        pauseAction.Enable();
 
     }
 
@@ -85,5 +92,6 @@ public class PlayerInputHandler : MonoBehaviour
         jumpAction.Disable();
         crouchAction.Disable();
         walkAction.Disable();
+        pauseAction.Disable();
     }
 }

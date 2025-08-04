@@ -59,15 +59,28 @@ public class CharacterHealth : MonoBehaviour
     /// <summary>
     /// This is where the fun begins!
     /// </summary>
+    
+    public void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.gameObject.name + " hit!");
+        if (collision.gameObject.tag == "Hazard")
+        {
+            TakeHit(50f);
+        }
+    }
 
-    public void TakeHit()
+
+
+
+
+    public void TakeHit(float damage)
     {
         if (isInvulnerable)
         {
             return;
         }
 
-        TakeDamage(1f);
+        TakeDamage(damage);
 
         if (!canRegenerate || regenerating)
         {
