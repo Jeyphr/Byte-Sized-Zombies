@@ -31,7 +31,7 @@ public class PlayerInputHandler : MonoBehaviour
     public bool IsJumping { get; private set; }
     public bool IsCrouching { get; private set; }
     public bool IsWalking { get; private set; }
-    public bool IsPaused { get; private set; }
+    public bool PressingPause { get; private set; }
 
     //Singleton Stuff
     public static PlayerInputHandler Instance { get; private set; }
@@ -64,12 +64,12 @@ public class PlayerInputHandler : MonoBehaviour
         jumpAction.performed += context => IsJumping = true;
         crouchAction.performed += context => IsCrouching = true;
         walkAction.performed += context => IsWalking = true;
-        pauseAction.performed += context => IsPaused = true;
+        pauseAction.performed += context => PressingPause = true;
 
         jumpAction.canceled += context => IsJumping = false;
         crouchAction.canceled += context => IsCrouching = false;
         walkAction.canceled += context => IsWalking = false;
-        pauseAction.canceled += context => IsPaused = false;
+        pauseAction.canceled += context => PressingPause = false;
     }
 
 
