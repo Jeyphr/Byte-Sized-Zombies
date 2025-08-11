@@ -13,18 +13,17 @@ public enum uiState
 public class UIManager : MonoBehaviour
 {
     [Header("Object References")]
-    [SerializeField] public static UIManager Instance { get; private set; }
-    [SerializeField] public static PlayerMovement PM;
+    public static UIManager Instance { get; private set; }
+    public static PlayerMovement PM;
 
-    [Header("Variables")]
+    [Header("UI Statistics")]
     [SerializeField] private bool showLogs;
 
     #region UIManager Events
     #endregion
 
-    //Fun begins below VV
     #region Main Methods
-    void Awake()
+    void Start()
     {
         if (Instance != null && Instance != this)
         {
@@ -51,22 +50,19 @@ public class UIManager : MonoBehaviour
 
     private void setUIState(uiState state)
     {
-        Debug.Log(state);
+        Debug.Log("Setting UI State:\t" + state);
         switch (state)
         {
             case uiState.Gameplay:
                 hideAllCanvases();
-                LockMouse();
                 showCanvas(GameplayScreen);
                 break;
             case uiState.Paused:
                 hideAllCanvases();
-                UnlockMouse();
                 showCanvas(PauseScreen);
                 break;
             case uiState.Terminal:
                 hideAllCanvases();
-                UnlockMouse();
                 showCanvas(TerminalScreen);
                 break;
         }
@@ -121,12 +117,12 @@ public class UIManager : MonoBehaviour
     #region Event Methods
     private void OnEnable()
     {
-        PlayerMovement.OnCamStateChange += toggleMouse;
+        PlayerMovement.OnMouseStateChange += toggleMouse;
         PlayerMovement.OnUIStateChange += setUIState;
     }
     private void OnDisable()
     {
-        PlayerMovement.OnCamStateChange -= toggleMouse;
+        PlayerMovement.OnMouseStateChange -= toggleMouse;
         PlayerMovement.OnUIStateChange -= setUIState;
     }
     #endregion

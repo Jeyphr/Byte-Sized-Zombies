@@ -45,13 +45,13 @@ public class PlayerMovement : MonoBehaviour
     private bool isInTerminal = false;
 
     #region PlayerMovmement Events
-    public static event Action<bool> OnCamStateChange;
+    public static event Action<bool> OnMouseStateChange;
     public static event Action<uiState> OnUIStateChange;
 
     #endregion
 
     #region Main Methods
-    void Awake()
+    void Start()
     {
         playerController = FindAnyObjectByType<CharacterController>();
         iHandler = FindAnyObjectByType<PlayerInputHandler>();
@@ -95,8 +95,9 @@ public class PlayerMovement : MonoBehaviour
     private void handleRotation()
     {
         if (!updateCamera) { return; }
+        if (freeCam) { return; }
 
-        if (!freeCam)
+        if (!isPaused)
         {
             mouseX = iHandler.LookInput.x * hSens;
             transform.Rotate(0, mouseX, 0);
@@ -131,19 +132,23 @@ public class PlayerMovement : MonoBehaviour
     #region State Handler
     private void setGameState(playerState g)
     {
+        Debug.Log("Setting Game State:\t" + g);
         switch (g)
         {
             case playerState.Gameplay:
                 isPaused = false;
                 OnUIStateChange?.Invoke(uiState.Gameplay);
+                OnMouseStateChange?.Invoke(false);
                 break;
             case playerState.Paused:
                 isPaused = true;
                 OnUIStateChange?.Invoke(uiState.Paused);
+                OnMouseStateChange?.Invoke(true);
                 break;
             case playerState.Terminal:
                 isPaused = false;
                 OnUIStateChange?.Invoke(uiState.Terminal);
+                OnMouseStateChange?.Invoke(true);
                 break;
 
         }
@@ -155,8 +160,9 @@ public class PlayerMovement : MonoBehaviour
     #region UI Control
     private void handleUI()
     {
-        if ((iHandler.PressingPause) && !isPaused)
+        if (iHandler.PressingPause && !isPaused)
         {
+            isPaused = true;
             setGameState(playerState.Paused);
             Time.timeScale = 0;
         }
