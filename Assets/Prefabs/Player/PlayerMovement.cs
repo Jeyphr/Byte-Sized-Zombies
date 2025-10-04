@@ -165,6 +165,13 @@ public class PlayerMovement : MonoBehaviour
             isPaused = true;
             setGameState(playerState.Paused);
             Time.timeScale = 0;
+            
+        }
+        else if (iHandler.PressingPause && isPaused)
+        {
+            isPaused = false;
+            setGameState(playerState.Gameplay);
+            Time.timeScale = 1;
         }
     }
     #endregion

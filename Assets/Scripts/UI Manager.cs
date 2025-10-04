@@ -14,13 +14,11 @@ public class UIManager : MonoBehaviour
 {
     [Header("Object References")]
     public static UIManager Instance { get; private set; }
-    public static PlayerMovement PM;
-
+    private PlayerMovement PM;
     [Header("UI Statistics")]
     [SerializeField] private bool showLogs;
 
-    #region UIManager Events
-    #endregion
+
 
     #region Main Methods
     void Start()
@@ -84,45 +82,13 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
-    #region Mouse Control
-    private bool mouseLock;
-    public bool GetMouseLock { get { return mouseLock; } private set { mouseLock = value; } }
-
-    private void LockMouse()
-    {
-        mouseLock = true;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
-    private void UnlockMouse()
-    {
-        mouseLock = false;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
-    private void toggleMouse(bool isOn)
-    {
-        Debug.Log("Mouse Mode: " + isOn);
-        if (isOn)
-        {
-            UnlockMouse();
-        }
-        else
-        {
-            LockMouse();
-        }
-    }
-    #endregion
-
     #region Event Methods
     private void OnEnable()
     {
-        PlayerMovement.OnMouseStateChange += toggleMouse;
         PlayerMovement.OnUIStateChange += setUIState;
     }
     private void OnDisable()
     {
-        PlayerMovement.OnMouseStateChange -= toggleMouse;
         PlayerMovement.OnUIStateChange -= setUIState;
     }
     #endregion

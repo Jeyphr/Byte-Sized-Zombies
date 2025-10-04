@@ -6,11 +6,15 @@ public class Logger : MonoBehaviour
     public static Logger Instance { get; private set; }
 
     [Header("Object References")]
-    private GameObject player;
     [SerializeField] private TextMeshProUGUI xPos, yPos, zPos;
+
+    //hidden object references
+    private GameObject player;
 
     [Header("Logger Statistics")]
     private float playerX, playerY, playerZ;
+
+    //hidden variables
 
     #region Main Methods
     //This is where the bun begins!
@@ -30,9 +34,7 @@ public class Logger : MonoBehaviour
 
     void Update()
     {
-        setCoordText(xPos, player.transform.position.x);
-        setCoordText(yPos, player.transform.position.y);
-        setCoordText(zPos, player.transform.position.z);
+        updateCoordText();
     }
     #endregion
 
@@ -41,6 +43,15 @@ public class Logger : MonoBehaviour
     {
         int castVal = (int)val;
         label.text = castVal.ToString();
+    }
+
+    private void updateCoordText()
+    {
+        if (player == null) { return; }
+
+        setCoordText(xPos, player.transform.position.x);
+        setCoordText(yPos, player.transform.position.y);
+        setCoordText(zPos, player.transform.position.z);
     }
     #endregion
 }
