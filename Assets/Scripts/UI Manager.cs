@@ -34,7 +34,6 @@ public class UIManager : MonoBehaviour
 
         // --------------------------------------
         PM = FindAnyObjectByType<PlayerMovement>();
-        hideAllCanvases();
     }
     #endregion
 
@@ -42,9 +41,7 @@ public class UIManager : MonoBehaviour
 
     #region UI Control
     [Header("Game Screen References")]
-    [SerializeField] private Canvas GameplayScreen;
-    [SerializeField] private Canvas TerminalScreen;
-    [SerializeField] private Canvas PauseScreen;
+    [SerializeField] private Canvas GameplayScreen, TerminalScreen, PauseScreen;
 
     private void setUIState(uiState state)
     {

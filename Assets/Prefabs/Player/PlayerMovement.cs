@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -165,7 +166,7 @@ public class PlayerMovement : MonoBehaviour
             isPaused = true;
             setGameState(playerState.Paused);
             Time.timeScale = 0;
-            
+
         }
         else if (iHandler.PressingPause && isPaused)
         {
