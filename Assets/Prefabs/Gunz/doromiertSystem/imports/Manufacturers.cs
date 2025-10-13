@@ -2,7 +2,7 @@ using DoromiertSystem;
 
 public static class Manufacturers
 {
-    public static Manufacturer DoomCo = new Manufacturer
+    public static ManufacturerD DoomCo = new ManufacturerD
     {
         Name = "Doom Co",
         Description = "They started building nailguns back in 1493 and somehow managed to never go out of business. They are known for their high-quality nailguns that are both reliable and powerful. They still don't know that gunpowder exists.",
@@ -11,7 +11,7 @@ public static class Manufacturers
         GunTypes = new GunTypeD[] { GunTypeD.Nailgun }
     };
 
-    public static Manufacturer PropDept = new Manufacturer
+    public static ManufacturerD PropDept = new ManufacturerD
     {
         Name = "Prop Dept",
         Description = "They're actually the prop department behind the movie you're stuck in. They make all sorts of fake guns for movies, but since you're in a movie, they're real to you.",
@@ -20,7 +20,7 @@ public static class Manufacturers
         GunTypes = new GunTypeD[] { GunTypeD.Pistol, GunTypeD.MachinePistol, GunTypeD.Revolver, GunTypeD.SMG, GunTypeD.Rifle, GunTypeD.AutoShotgun, GunTypeD.PumpShotgun, GunTypeD.Sniper, GunTypeD.Marksman_Rifle, GunTypeD.LMG }
     };
 
-    public static Manufacturer HablaffaIncorporated = new Manufacturer
+    public static ManufacturerD HablaffaIncorporated = new ManufacturerD
     {
         Name = "Hablaffa Incorporated",
         Description = "Founded in 1933 by Robert Noble-Hablaffa when he learned about his grandpa's invention of the dynamite stick, Hablaffa Inc at first only produced explosives meant for mining, but after they learned about how profitable the firearms industry was, they expanded into making general explosive weaponry.",
@@ -29,7 +29,7 @@ public static class Manufacturers
         GunTypes = new GunTypeD[] { GunTypeD.Grenade_Launcher, GunTypeD.Rocket_Launcher, GunTypeD.Torpedo }
     };
 
-    public static Manufacturer PenIsland = new Manufacturer
+    public static ManufacturerD PenIsland = new ManufacturerD
     {
         Name = "Pen Island",
         Description = "Founded in 2001 by a group of disgruntled office workers who were tired of using boring, ineffective pens, PenIsland revolutionized the writing instrument industry by creating pens that could also function as deadly firearms. Their slogan, 'Write your own destiny,' reflects their commitment to empowering individuals to take control of their lives and defend themselves if necessary.",
@@ -38,7 +38,7 @@ public static class Manufacturers
         GunTypes = new GunTypeD[] { GunTypeD.Pen }
     };
 
-    public static Manufacturer PorterToys = new Manufacturer
+    public static ManufacturerD PorterToys = new ManufacturerD
     {
         Name = "Porter Toys",
         Description = "A toys company that secretly manufactures real firearms disguised as toys. Their products are popular among collectors and enthusiasts who appreciate the craftsmanship and novelty of owning a toy gun that is also a functional weapon.",
@@ -47,7 +47,7 @@ public static class Manufacturers
         GunTypes = new GunTypeD[] { GunTypeD.Pistol, GunTypeD.MachinePistol }
     };
 
-    public static Manufacturer BBL = new Manufacturer
+    public static ManufacturerD BBL = new ManufacturerD
     {
         Name = "BBL",
         Description = "Bass Boosted Labs (BBL) specializes in audio equipment of all sorts, but it started manufacturing firearms after the CEO watched a youtube video of someone using their speakers to hunt animals.",
@@ -56,7 +56,7 @@ public static class Manufacturers
         GunTypes = new GunTypeD[] { GunTypeD.SMG, GunTypeD.Rifle, GunTypeD.AutoShotgun, GunTypeD.PumpShotgun, GunTypeD.Sniper, GunTypeD.Marksman_Rifle, GunTypeD.LMG }
     };
 
-    public static Manufacturer SkyByDyToilets = new Manufacturer
+    public static ManufacturerD SkyByDyToilets = new ManufacturerD
     {
         Name = "SkyByDy Toilets",
         Description = "SkyByDy Toilets is a company that specializes in high-tech toilets and bathroom fixtures. Their bathroom products were so advanced that they decided to branch out into making firearms out of porcelain.",
@@ -65,7 +65,7 @@ public static class Manufacturers
         GunTypes = new GunTypeD[] { GunTypeD.PumpShotgun }
     };
 
-    public static Manufacturer Everblue = new Manufacturer
+    public static ManufacturerD Everblue = new ManufacturerD
     {
         Name = "Everblue",
         Description = "Everblue is a shipping comapny that used their expertise to craft very high capacity magazines.",
@@ -74,7 +74,7 @@ public static class Manufacturers
         GunTypes = new GunTypeD[] { }
     };
 
-    public static Manufacturer PrivyetTech = new Manufacturer
+    public static ManufacturerD PrivyetTech = new ManufacturerD
     {
         Name = "Privyet Tech",
         Description = "Privyet Tech is a Russian company that makes all kinds of budget friendly products. And by budget friendly, we mean ghetto quality. Literally.",
@@ -83,7 +83,7 @@ public static class Manufacturers
         GunTypes = new GunTypeD[] { GunTypeD.Pistol, GunTypeD.MachinePistol, GunTypeD.Revolver, GunTypeD.SMG, GunTypeD.Rifle, GunTypeD.AutoShotgun, GunTypeD.PumpShotgun, GunTypeD.Sniper, GunTypeD.Marksman_Rifle, GunTypeD.LMG, GunTypeD.Nailgun }
     };
 
-    public static Manufacturer Yuzuki = new Manufacturer
+    public static ManufacturerD Yuzuki = new ManufacturerD
     {
         Name = "Yuzuki",
         Description = "Yuzuki is a Japanese company that makes high quality firearms with a focus on precision and reliability. They are known for their innovative designs and use of advanced materials.",
@@ -92,7 +92,7 @@ public static class Manufacturers
         GunTypes = new GunTypeD[] { GunTypeD.Pistol, GunTypeD.MachinePistol, GunTypeD.Revolver, GunTypeD.SMG, GunTypeD.Rifle, GunTypeD.AutoShotgun, GunTypeD.PumpShotgun, GunTypeD.Sniper, GunTypeD.Marksman_Rifle, GunTypeD.LMG }
     };
 
-    public static Manufacturer NegativeZero = new Manufacturer
+    public static ManufacturerD NegativeZero = new ManufacturerD
     {
         Name = "Negative Zero",
         Description = "If you see a gun made by Negative Zero, run. Just run. The devs of this game hand-made it.",

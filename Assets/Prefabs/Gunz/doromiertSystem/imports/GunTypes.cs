@@ -1,4 +1,4 @@
-public class AutoShotgunD : Gun {
+public class AutoShotgunD : GunD {
     public GunTypeD GunType = GunTypeD.AutoShotgun;
     public struct attachments {
         public Barrel Barrel;
@@ -10,7 +10,7 @@ public class AutoShotgunD : Gun {
     }
 }
 
-public class PumpShotgunD : Gun {
+public class PumpShotgunD : GunD {
     public GunTypeD GunType = GunTypeD.PumpShotgun;
     public float Spread;
     public struct attachments {
@@ -22,7 +22,7 @@ public class PumpShotgunD : Gun {
     }
 }
 
-public class SniperD : Gun {
+public class SniperD : GunD {
     public GunTypeD GunType = GunTypeD.Sniper;
     public float Steadiness;
     public struct attachments {
@@ -34,7 +34,7 @@ public class SniperD : Gun {
     }
 }
 
-public class Subwoofer : Gun {
+public class Subwoofer : GunD {
     public GunTypeD GunType = GunTypeD.Subwoofer;
     public float BassBoost;
     public struct attachments {

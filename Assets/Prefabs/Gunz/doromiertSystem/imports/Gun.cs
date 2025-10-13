@@ -1,6 +1,6 @@
-public class Gun {
+public class GunD {
     public GunTypeD GunType;
-    public Manufacturer Manufacturer;
+    public ManufacturerD Manufacturer;
     public RarityD Rarity;
     public ElementD Element;
     public BulletTypeD BulletType;

@@ -3,7 +3,7 @@ using System;
 public class Attachment {
     public string Name;
     public string Description;
-    public Manufacturer Manufacturer;
+    public ManufacturerD Manufacturer;
     public AttachmentType Type;
     public ElementD Element;
     public Rarity Rarity;
@@ -60,7 +60,7 @@ public class Amplifier : Attachment {
 public class AmplifierPreset {
     public string Name;
     public string Description;
-    public Manufacturer Manufacturer;
+    public ManufacturerD Manufacturer;
     public ElementD Element;
     public Rarity Rarity;
     public float DamageMin, DamageMax;
@@ -76,7 +76,7 @@ public class Choke : Attachment {
 public class BarrelPreset {
     public string Name;
     public string Description;
-    public Manufacturer Manufacturer;
+    public ManufacturerD Manufacturer;
     public ElementD Element;
     public Rarity Rarity;
     public float AccuracyMin, AccuracyMax;
@@ -86,7 +86,7 @@ public class BarrelPreset {
 public class StockPreset {
     public string Name;
     public string Description;
-    public Manufacturer Manufacturer;
+    public ManufacturerD Manufacturer;
     public ElementD Element;
     public Rarity Rarity;
     public float RecoilMin, RecoilMax;
@@ -96,7 +96,7 @@ public class StockPreset {
 public class MagazinePreset {
     public string Name;
     public string Description;
-    public Manufacturer Manufacturer;
+    public ManufacturerD Manufacturer;
     public ElementD Element;
     public Rarity Rarity;
     public int MagazineSizeMin, MagazineSizeMax;
@@ -106,7 +106,7 @@ public class MagazinePreset {
 public class SightPreset {
     public string Name;
     public string Description;
-    public Manufacturer Manufacturer;
+    public ManufacturerD Manufacturer;
     public ElementD Element;
     public Rarity Rarity;
     public float ZoomMin, ZoomMax;
@@ -116,7 +116,7 @@ public class SightPreset {
 public class GripPreset {
     public string Name;
     public string Description;
-    public Manufacturer Manufacturer;
+    public ManufacturerD Manufacturer;
     public ElementD Element;
     public Rarity Rarity;
     public float RecoilMin, RecoilMax;
@@ -126,7 +126,7 @@ public class GripPreset {
 public class TipPreset {
     public string Name;
     public string Description;
-    public Manufacturer Manufacturer;
+    public ManufacturerD Manufacturer;
     public ElementD Element;
     public Rarity Rarity;
     public float DamageMin, DamageMax;
@@ -135,7 +135,7 @@ public class TipPreset {
 public class InkReservoirPreset {
     public string Name;
     public string Description;
-    public Manufacturer Manufacturer;
+    public ManufacturerD Manufacturer;
     public ElementD Element;
     public Rarity Rarity;
     public int MagazineSizeMin, MagazineSizeMax;
@@ -145,7 +145,7 @@ public class InkReservoirPreset {
 public class ChokePreset {
     public string Name;
     public string Description;
-    public Manufacturer Manufacturer;
+    public ManufacturerD Manufacturer;
     public ElementD Element;
     public Rarity Rarity;
     public float SpreadMin, SpreadMax;

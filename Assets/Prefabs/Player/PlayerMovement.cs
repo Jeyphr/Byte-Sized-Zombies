@@ -133,7 +133,6 @@ public class PlayerMovement : MonoBehaviour
     #region State Handler
     private void setGameState(playerState g)
     {
-        Debug.Log("Setting Game State:\t" + g);
         switch (g)
         {
             case playerState.Gameplay:

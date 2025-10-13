@@ -45,7 +45,6 @@ public class UIManager : MonoBehaviour
 
     private void setUIState(uiState state)
     {
-        Debug.Log("Setting UI State:\t" + state);
         switch (state)
         {
             case uiState.Gameplay:

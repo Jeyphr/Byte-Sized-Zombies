@@ -1,9 +1,11 @@
 using System;
+using DoromiertSystem;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
+//---------------------------------------------------------------
 
-#region Enums
 public enum BulletType
 {
     Kinetic,    // Bullets
@@ -39,6 +41,7 @@ public enum GunType
     Grenade_Launcher
 }
 
+
 public enum PartType
 {
     Barrel,
@@ -56,24 +59,6 @@ public enum Rarity
     Epic,
     Legendary
 }
-#endregion
-
-
-
-#region  Structs
-public struct ManufacturerInfo
-{
-    public String manufacturerName;
-    public String description;
-    public BulletType bulletType;
-    public Element[] possibleElements;
-    public GunType[] possibleGunTypes;
-}
-#endregion
-
-
-
-#region Classes
 public class Weapon
 {
     public GunType GunType;
@@ -89,70 +74,27 @@ public class Weapon
     public float GearScore;
 }
 
-// -------------------------------- Guns ---------------------------------
-public class Pistol : Weapon
+public enum WeaponManufacturer
 {
-    public GunType Type = GunType.Pistol;
+    Prop_Dept,              // Prop Department - Standard issue, made with love <3
+    Porter_Toys,            // Porter Toys - Really Raving Rayguns!
+    DoomCo,                 // DoomCo - Nine-Inch Nailguns!
+    Hablaffa_Incorporated,  // KABOOMSTICKS! BUY NOW!
+    Privyet_Tech,           // Russian manufacturer - rugged and not much else
+
 }
 
-public class MachinePistol : Weapon
+
+public class ManufacturerInfo
 {
-    public GunType Type = GunType.MachinePistol;
+    public string manufacturerName;
+    public string description;
+    public BulletType bulletType;
+    public Element[] possibleElements;
+    public GunType[] possibleGunTypes;
 }
 
-public class Revolver : Weapon
-{
-    public GunType Type = GunType.Revolver;
-}
 
-public class SMG : Weapon
-{
-    public GunType Type = GunType.SMG;
-}
-
-public class Rifle : Weapon
-{
-    public GunType Type = GunType.Rifle;
-}
-
-public class Torpedo : Weapon
-{
-    public GunType Type = GunType.Torpedo;
-}
-
-public class Shotgun : Weapon
-{
-    public GunType Type = GunType.Shotgun;
-    public float Spread; // Degrees of spread
-}
-
-public class Sniper : Weapon
-{
-    public GunType Type = GunType.Sniper;
-    public float Steadiness; // Higher is better
-}
-
-public class Marksman_Rifle : Weapon
-{
-    public GunType Type = GunType.Marksman_Rifle;
-}
-
-public class LMG : Weapon
-{
-    public GunType Type = GunType.LMG;
-}
-
-public class Rocket_Launcher : Weapon
-{
-    public GunType Type = GunType.Rocket_Launcher;
-}
-
-public class Grenade_Launcher : Weapon
-{
-    public GunType Type = GunType.Grenade_Launcher;
-}
-
-// -------------------------------- Parts ---------------------------------
 public class Part
 {
     public string PartName;
@@ -160,110 +102,81 @@ public class Part
     public float Score;
 }
 
-public class BarrelPart : Part
-{
-    public PartType Type = PartType.Barrel;
-}
-
-public class StockPart : Part
-{
-    public PartType Type = PartType.Stock;
-}
-
-public class MagazinePart : Part
-{
-    public PartType Type = PartType.Magazine;
-}
-
-public class OpticPart : Part
-{
-    public PartType Type = PartType.Optic;
-}
-
-public class GripPart : Part
-{
-    public PartType Type = PartType.Grip;
-}
-#endregion
-
-
-
-#region GunGenerator Class
 public class GunGenerator : MonoBehaviour
 {
-    public ManufacturerInfo Prop_Dept = new ManufacturerInfo
+    // Consolidated manufacturer definitions for readability
+    private readonly ManufacturerInfo[] manufacturers = new ManufacturerInfo[]
     {
-        manufacturerName = "Prop Dept.",
-        bulletType = BulletType.Kinetic,
-        possibleElements = new Element[] { Element.NonElemental },
-        possibleGunTypes = new GunType[] { GunType.Pistol, GunType.MachinePistol, GunType.Revolver, GunType.SMG, GunType.Rifle, GunType.Shotgun, GunType.Sniper, GunType.Marksman_Rifle, GunType.LMG }
+        new ManufacturerInfo
+        {
+            manufacturerName = "Prop Dept.",
+            bulletType = BulletType.Kinetic,
+            possibleElements = new Element[] { Element.NonElemental },
+            possibleGunTypes = new GunType[] { GunType.Pistol, GunType.MachinePistol, GunType.Revolver, GunType.SMG, GunType.Rifle, GunType.Shotgun, GunType.Sniper, GunType.Marksman_Rifle, GunType.LMG }
+        },
+        new ManufacturerInfo
+        {
+            manufacturerName = "Porter Toys",
+            bulletType = BulletType.Ray,
+            possibleElements = new Element[] { Element.Fire, Element.Electric, Element.Corrosive },
+            possibleGunTypes = new GunType[] { GunType.Revolver, GunType.SMG, GunType.Rifle, GunType.Shotgun, GunType.Marksman_Rifle, GunType.LMG }
+        },
+        new ManufacturerInfo
+        {
+            manufacturerName = "DoomCo.",
+            bulletType = BulletType.Nail,
+            possibleElements = new Element[] { Element.NonElemental, Element.Fire, Element.Explosive },
+            possibleGunTypes = new GunType[] { GunType.MachinePistol, GunType.SMG, GunType.Shotgun, GunType.LMG, GunType.Torpedo, GunType.Grenade_Launcher }
+        },
+        new ManufacturerInfo
+        {
+            manufacturerName = "Hablaffa Incorporated",
+            bulletType = BulletType.Grenade,
+            possibleElements = new Element[] { Element.Explosive },
+            possibleGunTypes = new GunType[] { GunType.Grenade_Launcher, GunType.Rocket_Launcher, GunType.Torpedo, GunType.Shotgun, GunType.Sniper, GunType.Revolver }
+        },
+        new ManufacturerInfo
+        {
+            manufacturerName = "Privyet Tech",
+            bulletType = BulletType.Kinetic,
+            possibleElements = new Element[] { Element.NonElemental },
+            possibleGunTypes = new GunType[] { GunType.Pistol, GunType.SMG, GunType.Rifle, GunType.Sniper, GunType.Marksman_Rifle, GunType.LMG, GunType.Rocket_Launcher, GunType.Torpedo, GunType.Grenade_Launcher }
+        }
     };
 
-    public ManufacturerInfo Porter_Toys = new ManufacturerInfo
-    {
-        manufacturerName = "Porter Toys",
-        bulletType = BulletType.Ray,
-        possibleElements = new Element[] { Element.Fire, Element.Electric, Element.Corrosive },
-        possibleGunTypes = new GunType[] { GunType.Revolver, GunType.SMG, GunType.Rifle, GunType.Shotgun, GunType.Marksman_Rifle, GunType.LMG }
-    };
-
-    public ManufacturerInfo DoomCo = new ManufacturerInfo
-    {
-        manufacturerName = "DoomCo.",
-        bulletType = BulletType.Nail,
-        possibleElements = new Element[] { Element.NonElemental, Element.Fire, Element.Explosive },
-        possibleGunTypes = new GunType[] { GunType.MachinePistol, GunType.SMG, GunType.Shotgun, GunType.LMG, GunType.Torpedo, GunType.Grenade_Launcher }
-    };
-
-    public ManufacturerInfo Hablaffa_Incorporated = new ManufacturerInfo
-    {
-        manufacturerName = "Hablaffa Incorporated",
-        bulletType = BulletType.Grenade,
-        possibleElements = new Element[] { Element.Explosive },
-        possibleGunTypes = new GunType[] { GunType.Grenade_Launcher, GunType.Rocket_Launcher, GunType.Torpedo, GunType.Shotgun, GunType.Sniper, GunType.Revolver }
-    };
-
-    public ManufacturerInfo PenIsland = new ManufacturerInfo
-    {
-        manufacturerName = "Pen Island Incorporated",
-        bulletType = BulletType.Laser,
-        possibleElements = new Element[] { Element.Corrosive },
-        possibleGunTypes = new GunType[] { GunType.SMG, GunType.Rocket_Launcher }
-    };
-
-
-
-    #region Unity Methods
-    void Start()
-    {
-        // Prop_Dept is already initialized at class scope
-        GenerateGun();
-
-    }
-    #endregion
-
-
-
-    #region Pickers
     public ManufacturerInfo PickManufacturer()
     {
-        ManufacturerInfo[] manufacturers = new ManufacturerInfo[] { Prop_Dept, Porter_Toys, DoomCo, Hablaffa_Incorporated, PenIsland };
-        ManufacturerInfo selectedManufacturer = manufacturers[UnityEngine.Random.Range(0, manufacturers.Length)];
-        Debug.Log("Picked Manufacturer: " + selectedManufacturer.manufacturerName);
+        var selectedManufacturer = manufacturers[UnityEngine.Random.Range(0, manufacturers.Length)];
         return selectedManufacturer;
     }
 
-    public Element PickElement(ManufacturerInfo manufacturer)
+    public Element PickElement(ManufacturerInfo manufacturer, GunType gunType)
     {
         Element selectedElement = manufacturer.possibleElements[UnityEngine.Random.Range(0, manufacturer.possibleElements.Length)];
-        Debug.Log("Picked Element: " + selectedElement);
+
+        // Adjust element for specific gun types
+        if (gunType == GunType.Torpedo || gunType == GunType.Grenade_Launcher || gunType == GunType.Rocket_Launcher)
+        {
+            return Element.Explosive;
+        }
+
         return selectedElement;
     }
 
-    public BulletType PickBulletType(ManufacturerInfo manufacturer)
+    public BulletType PickBulletType(ManufacturerInfo manufacturer, GunType gunType)
     {
         BulletType selectedBulletType = manufacturer.bulletType;
-        Debug.Log("Picked Bullet Type: " + selectedBulletType);
+
+        // Adjust bullet type for specific gun types
+        if (gunType == GunType.Torpedo || gunType == GunType.Grenade_Launcher)
+        {
+            return BulletType.Grenade;
+        }
+        else if (gunType == GunType.Rocket_Launcher)
+        {
+            return BulletType.Rocket;
+        }
+
         return selectedBulletType;
     }
 
@@ -271,23 +184,40 @@ public class GunGenerator : MonoBehaviour
     public GunType PickGunType(ManufacturerInfo manufacturer)
     {
         GunType selectedGunType = manufacturer.possibleGunTypes[UnityEngine.Random.Range(0, manufacturer.possibleGunTypes.Length)];
-        Debug.Log("Picked Gun Type: " + selectedGunType);
         return selectedGunType;
     }
-    #endregion
 
 
 
-    #region Gun Generation
     public void GenerateGun()
     {
         ManufacturerInfo manufacturer = PickManufacturer();
         GunType gunType = PickGunType(manufacturer);
-        Element element = PickElement(manufacturer);
-        BulletType bulletType = PickBulletType(manufacturer);
+        Element element = PickElement(manufacturer, gunType);
+        BulletType bulletType = PickBulletType(manufacturer, gunType);
 
-        Debug.Log("Generated a " + manufacturer.manufacturerName + " " + gunType + " that shoots " + element + " " + bulletType + " rounds.");
+        Weapon newWeapon = new Weapon
+        {
+            Manufacturer = manufacturer,
+            GunType = gunType,
+            Element = element,
+            BulletType = bulletType,
+            WeaponName = $"{element} {manufacturer.manufacturerName} {gunType}",
+
+
+        };
+
+        Debug.Log($"Just generated a {newWeapon.WeaponName} that shoots {newWeapon.BulletType} bullets.");
     }
-    #endregion
+
+    void Start()
+    {
+        // Prop_Dept is already initialized at class scope
+        for (int i = 0; i < 100; i++)
+        {
+            GenerateGun();
+        }
+
+
+    }
 }
-#endregion

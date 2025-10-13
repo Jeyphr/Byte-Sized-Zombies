@@ -5,19 +5,19 @@ using DoromiertSystem;
 public class GunGeneratorDoromiert : MonoBehaviour
 {
 
-    public Manufacturer[] Manufacturers = new Manufacturer[] { Manufacturers.DoomCo, Manufacturers.Hablaffa_Incorporated, Manufacturers.PenIsland, Manufacturers.Porter_Toys };
+    public ManufacturerD[] Manufacturers = new ManufacturerD[] { }; //Manufacturers.DoomCo, Manufacturers.Hablaffa_Incorporated, Manufacturers.PenIsland, Manufacturers.Porter_Toys };
 
     public void Start()
     {
         DebugGenerator();
     }
     
-    public Gun GenerateGun()
+    public GunD GenerateGun()
     {
-        Manufacturer manufacturer = Manufacturers[UnityEngine.Random.Range(0, Manufacturers.Length)];
+        ManufacturerD manufacturer = Manufacturers[UnityEngine.Random.Range(0, Manufacturers.Length)];
         GunTypeD gunType = manufacturer.GunTypes[UnityEngine.Random.Range(0, manufacturer.GunTypes.Length)];
 
-        Gun gun;
+        GunD gun;
         switch (gunType)
         {
             case GunTypeD.AutoShotgun:
@@ -29,7 +29,7 @@ public class GunGeneratorDoromiert : MonoBehaviour
                 gun = new SniperD();
                 break;
             default:
-                gun = new Gun();
+                gun = new GunD();
                 break;
         }
 
@@ -58,7 +58,7 @@ public class GunGeneratorDoromiert : MonoBehaviour
         // Generate and log 5 random guns
         for (int i = 0; i < 5; i++)
         {
-            Gun gun = GenerateGun();
+            GunD gun = GenerateGun();
             Debug.Log($"Generated Gun {i + 1}: {gun.Name}, Type: {gun.GunType}, Manufacturer: {gun.Manufacturer.Name}, Rarity: {gun.Rarity}, Element: {gun.Element}, Damage: {gun.Damage}, Fire Rate: {gun.FireRate}, Magazine Size: {gun.MagazineSize}");
         }
     }

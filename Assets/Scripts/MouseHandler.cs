@@ -45,7 +45,6 @@ public class MouseHandler : MonoBehaviour
     }
     private void toggleMouse(bool isOn)
     {
-        Debug.Log("Mouse is " + isOn);
         if (isOn)
         {
             UnlockMouse();

@@ -1,6 +1,6 @@
 using System;
 
-public class Manufacturer {
+public class ManufacturerD {
     public string Name;
     public string Description;
     public BulletTypeD[] BulletTypes;
