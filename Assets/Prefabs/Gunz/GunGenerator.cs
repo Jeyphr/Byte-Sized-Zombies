@@ -151,13 +151,13 @@ public class GunGenerator : MonoBehaviour
     #endregion
 
     #region Weapon Generation Methods
-    public ManufacturerInfo PickManufacturer()
+    public ManufacturerInfo SetManufacturer()
     {
         var selectedManufacturer = manufacturers[UnityEngine.Random.Range(0, manufacturers.Length)];
         return selectedManufacturer;
     }
 
-    public Element PickElement(ManufacturerInfo manufacturer, GunType gunType)
+    public Element SetElement(ManufacturerInfo manufacturer, GunType gunType)
     {
         // Adjust element for specific gun types
         if (gunType == GunType.Torpedo || gunType == GunType.Grenade_Launcher || gunType == GunType.Rocket_Launcher)
@@ -169,7 +169,7 @@ public class GunGenerator : MonoBehaviour
         return selectedElement;
     }
 
-    public BulletType PickBulletType(ManufacturerInfo manufacturer, GunType gunType)
+    public BulletType SetBulletType(ManufacturerInfo manufacturer, GunType gunType)
     {
         // Adjust bullet type for specific gun types
         if (gunType == GunType.Torpedo || gunType == GunType.Grenade_Launcher)
@@ -185,16 +185,15 @@ public class GunGenerator : MonoBehaviour
         return selectedBulletType;
     }
 
-    // Picks a random gun type based on the manufacturer
-    public GunType PickGunType(ManufacturerInfo manufacturer)
+    public GunType SetWeaponType(ManufacturerInfo manufacturer)
     {
         GunType selectedGunType = manufacturer.possibleGunTypes[UnityEngine.Random.Range(0, manufacturer.possibleGunTypes.Length)];
         return selectedGunType;
     }
 
-    public string WeaponNameGenerator(Weapon weapon)
+    public string SetWeaponName(Weapon weapon)
     {
-        Part bestPart = GetHighestScoringPart(weapon);
+        Part bestPart = GetHighestScoringPartInWeapon(weapon);
 
         String Prefix;
         switch (weapon.Element)
@@ -209,7 +208,7 @@ public class GunGenerator : MonoBehaviour
                 Prefix = "Stinging";
                 break;
             case Element.Explosive:
-                Prefix = "Hard";
+                Prefix = "Banging";
                 break;
             default:
                 Prefix = "";
@@ -225,7 +224,7 @@ public class GunGenerator : MonoBehaviour
     }
 
     // Returns the Part with the highest PartScore, or null if no parts
-    public Part GetHighestScoringPart(Weapon weapon)
+    public Part GetHighestScoringPartInWeapon(Weapon weapon)
     {
         if (weapon?.Parts == null || weapon.Parts.Length == 0)
             return null;
@@ -239,24 +238,66 @@ public class GunGenerator : MonoBehaviour
         return best;
     }
 
+    public Rarity SetRarity(Weapon weapon)
+    {
+        foreach (var part in weapon.Parts)
+        {
+            weapon.GearScore += part.PartScore;
+        }
+
+        //Determine Rarity based on GearScore
+        switch (weapon.GearScore)
+        {
+            case float score when (score < 12):
+                return Rarity.Common;
+            case float score when (score >= 12 && score < 24):
+                return Rarity.Uncommon;
+            case float score when (score >= 24 && score < 36):
+                return Rarity.Rare;
+            case float score when (score >= 36 && score < 48):
+                return Rarity.Epic;
+            case float score when (score >= 48):
+                return Rarity.Legendary;
+            default:
+                return Rarity.Common;
+        }
+    }
+    
+    // Creates one Part for each PartType and returns the array
+    private Part[] CreateDebugParts()
+    {
+        Array partTypes = Enum.GetValues(typeof(PartType));
+        Part[] parts = new Part[partTypes.Length];
+
+        for (int i = 0; i < partTypes.Length; i++)
+        {
+            parts[i] = new Part
+            {
+                PartType = (PartType)partTypes.GetValue(i),
+                PartScore = UnityEngine.Random.Range(1, 10),
+                PartName = $"{partTypes.GetValue(i)}",
+            };
+        }
+
+        return parts;
+    }
+
     public void GenerateGun()
     {
-        ManufacturerInfo manufacturer = PickManufacturer();
-        GunType gunType = PickGunType(manufacturer);
-        Element element = PickElement(manufacturer, gunType);
-        BulletType bulletType = PickBulletType(manufacturer, gunType);
+        Weapon newWeapon = new Weapon();
 
-        Weapon newWeapon = new Weapon
-        {
-            Manufacturer = manufacturer,
-            GunType = gunType,
-            Element = element,
-            BulletType = bulletType
-        };
-
-        newWeapon.WeaponName = WeaponNameGenerator(newWeapon);
-        Debug.Log($"Just generated a {newWeapon.WeaponName} that shoots {newWeapon.BulletType} bullets.");
+        newWeapon.Manufacturer  = SetManufacturer();
+        newWeapon.GunType       = SetWeaponType(newWeapon.Manufacturer);
+        newWeapon.Element       = SetElement(newWeapon.Manufacturer, newWeapon.GunType);
+        newWeapon.BulletType    = SetBulletType(newWeapon.Manufacturer, newWeapon.GunType);
+        newWeapon.Parts         = CreateDebugParts();
+        newWeapon.Rarity        = SetRarity(newWeapon);
+        newWeapon.WeaponName    = SetWeaponName(newWeapon);
+        
+        Debug.Log($"Just generated a {newWeapon.WeaponName} that shoots {newWeapon.BulletType} bullets. ({newWeapon.GearScore}, {newWeapon.Rarity})");
     }
+
+
     #endregion
 
     #region Unity Methods
