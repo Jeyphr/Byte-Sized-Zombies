@@ -98,6 +98,9 @@ public class Part
     public string PartName;
     public PartType PartType;
     public float PartScore;
+
+    public WeaponManufacturer[] possibleManufacturers;
+    public GunType[] possibleGunTypes;
 }
 #endregion
 
@@ -262,7 +265,7 @@ public class GunGenerator : MonoBehaviour
                 return Rarity.Common;
         }
     }
-    
+
     // Creates one Part for each PartType and returns the array
     private Part[] CreateDebugParts()
     {
@@ -286,14 +289,14 @@ public class GunGenerator : MonoBehaviour
     {
         Weapon newWeapon = new Weapon();
 
-        newWeapon.Manufacturer  = SetManufacturer();
-        newWeapon.GunType       = SetWeaponType(newWeapon.Manufacturer);
-        newWeapon.Element       = SetElement(newWeapon.Manufacturer, newWeapon.GunType);
-        newWeapon.BulletType    = SetBulletType(newWeapon.Manufacturer, newWeapon.GunType);
-        newWeapon.Parts         = CreateDebugParts();
-        newWeapon.Rarity        = SetRarity(newWeapon);
-        newWeapon.WeaponName    = SetWeaponName(newWeapon);
-        
+        newWeapon.Manufacturer = SetManufacturer();
+        newWeapon.GunType = SetWeaponType(newWeapon.Manufacturer);
+        newWeapon.Element = SetElement(newWeapon.Manufacturer, newWeapon.GunType);
+        newWeapon.BulletType = SetBulletType(newWeapon.Manufacturer, newWeapon.GunType);
+        newWeapon.Parts = CreateDebugParts();
+        newWeapon.Rarity = SetRarity(newWeapon);
+        newWeapon.WeaponName = SetWeaponName(newWeapon);
+
         Debug.Log($"Just generated a {newWeapon.WeaponName} that shoots {newWeapon.BulletType} bullets. ({newWeapon.GearScore}, {newWeapon.Rarity})");
     }
 
