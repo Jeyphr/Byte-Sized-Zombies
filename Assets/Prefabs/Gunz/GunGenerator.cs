@@ -1,5 +1,6 @@
 using System;
-using DoromiertSystem;
+using System.Collections.Generic;
+using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -98,10 +99,18 @@ public class Part
     public string PartName;
     public PartType PartType;
     public float PartScore;
-
-    public WeaponManufacturer[] possibleManufacturers;
-    public GunType[] possibleGunTypes;
+    public int TimesPicked;
 }
+
+public class manufacturerPartList
+{
+    public Part[] grips;
+    public Part[] barrels;
+    public Part[] stocks;
+    public Part[] magazines;
+    public Part[] optics;
+}
+
 #endregion
 
 public class GunGenerator : MonoBehaviour
@@ -265,54 +274,104 @@ public class GunGenerator : MonoBehaviour
                 return Rarity.Common;
         }
     }
+    #endregion
 
-    // Creates one Part for each PartType and returns the array
-    private Part[] CreateDebugParts()
+    #region Part Creation Methods
+    //add one of each part to the weapon
+    private Part[] GetPartsFromManufacturerList(manufacturerPartList partList)
     {
-        Array partTypes = Enum.GetValues(typeof(PartType));
-        Part[] parts = new Part[partTypes.Length];
 
-        for (int i = 0; i < partTypes.Length; i++)
+        List<Part> parts = new List<Part>();
+        parts.Add(PickFromList(partList.grips));
+        parts.Add(PickFromList(partList.barrels));
+        parts.Add(PickFromList(partList.stocks));
+        parts.Add(PickFromList(partList.magazines));
+        parts.Add(PickFromList(partList.optics));
+
+
+        return parts.ToArray();
+    }
+
+    //takes a part list and picks a random part
+    private Part PickFromList(Part[] list)
+    {
+        if (list == null || list.Length == 0)
+            return null;
+
+        // Pick a random part from the list
+        Part part = list[UnityEngine.Random.Range(0, list.Length)];
+        part.TimesPicked++;
+        return part;
+    }
+
+    //creates all the generic parts
+    private Part[] CreateGenericParts(PartType partType, String manufacturerName, int numberOfParts = 5, int minScore = 1, int maxScore = 10)
+
+    {
+        Part[] parts = new Part[numberOfParts];
+
+        for (int i = 0; i < numberOfParts; i++)
         {
             parts[i] = new Part
             {
-                PartType = (PartType)partTypes.GetValue(i),
-                PartScore = UnityEngine.Random.Range(1, 10),
-                PartName = $"{partTypes.GetValue(i)}",
+                PartType = partType,
+                PartScore = UnityEngine.Random.Range(minScore, maxScore),
+                PartName = $"{manufacturerName} {partType} {i + 1}",
             };
         }
 
         return parts;
     }
 
+    private Part[] getPartListFromManufacturer(WeaponManufacturer manufacturer)
+    {
+        switch (manufacturer)
+        {
+            case WeaponManufacturer.Prop_Dept:
+                return GetPartsFromManufacturerList(allPartLists[0]);
+            default:
+                return GetPartsFromManufacturerList(allPartLists[0]);
+        }
+    }
+
+    private manufacturerPartList FillManufacturerPartsList(ManufacturerInfo manufacturer)
+    {
+        manufacturerPartList partList = new manufacturerPartList();
+
+        partList.grips = CreateGenericParts(PartType.Grip, manufacturer.manufacturerName);
+        partList.barrels = CreateGenericParts(PartType.Barrel, manufacturer.manufacturerName);
+        partList.stocks = CreateGenericParts(PartType.Stock, manufacturer.manufacturerName);
+        partList.magazines = CreateGenericParts(PartType.Magazine, manufacturer.manufacturerName);
+        partList.optics = CreateGenericParts(PartType.Optic, manufacturer.manufacturerName);
+
+        return partList;
+    }
+    #endregion
+
+    #region Unity Methods
     public void GenerateGun()
     {
         Weapon newWeapon = new Weapon();
-
         newWeapon.Manufacturer = SetManufacturer();
         newWeapon.GunType = SetWeaponType(newWeapon.Manufacturer);
         newWeapon.Element = SetElement(newWeapon.Manufacturer, newWeapon.GunType);
         newWeapon.BulletType = SetBulletType(newWeapon.Manufacturer, newWeapon.GunType);
-        newWeapon.Parts = CreateDebugParts();
         newWeapon.Rarity = SetRarity(newWeapon);
         newWeapon.WeaponName = SetWeaponName(newWeapon);
 
-        Debug.Log($"Just generated a {newWeapon.WeaponName} that shoots {newWeapon.BulletType} bullets. ({newWeapon.GearScore}, {newWeapon.Rarity})");
+        //Debug.Log($"Just generated a {newWeapon.WeaponName} that shoots {newWeapon.BulletType} bullets. ({newWeapon.GearScore}, {newWeapon.Rarity})");
     }
 
+    public manufacturerPartList[] allPartLists = new manufacturerPartList[5];
 
-    #endregion
 
-    #region Unity Methods
     void Start()
     {
-        // Prop_Dept is already initialized at class scope
+
         for (int i = 0; i < 100; i++)
         {
             GenerateGun();
         }
-
-
     }
     #endregion
 }
