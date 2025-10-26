@@ -817,6 +817,50 @@ Transform:
   - {fileID: 45667480}
   m_Father: {fileID: 437991285}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &935894144
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 935894145}
+  - component: {fileID: 935894146}
+  m_Layer: 0
+  m_Name: LootSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &935894145
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935894144}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1644515362}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &935894146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935894144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebb2b1a6e39eb104e93ad2014d871a85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &996482463 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4329104261819078684, guid: 03c851e330d696a4da7a704a15639195, type: 3}
@@ -1145,7 +1189,6 @@ GameObject:
   - component: {fileID: 1644515364}
   - component: {fileID: 1644515365}
   - component: {fileID: 1644515366}
-  - component: {fileID: 1644515368}
   m_Layer: 0
   m_Name: Utilities
   m_TagString: Untagged
@@ -1167,6 +1210,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1101392293}
+  - {fileID: 935894145}
   m_Father: {fileID: 437991285}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1644515363
@@ -1234,18 +1278,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showLogs: 0
   mouseLock: 0
---- !u!114 &1644515368
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1644515361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20de819798d70454c8df5f1ef25e16e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1652109958 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8799765587529529250, guid: 03c851e330d696a4da7a704a15639195, type: 3}
@@ -1523,7 +1555,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6274073361874288325, guid: 03c851e330d696a4da7a704a15639195, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000110164445
+      value: 0.000012650635
       objectReference: {fileID: 0}
     - target: {fileID: 7043048184720765226, guid: 03c851e330d696a4da7a704a15639195, type: 3}
       propertyPath: m_Name
@@ -1547,6 +1579,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9160789852991114807, guid: 03c851e330d696a4da7a704a15639195, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9160789852991114807, guid: 03c851e330d696a4da7a704a15639195, type: 3}
+      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
