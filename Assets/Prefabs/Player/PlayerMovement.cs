@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Object References")]
     public Camera playerCamera;
     public Camera uiCamera;
+    public Camera alterCamera;
     public CharacterController playerController;
     private PlayerInputHandler iHandler;
     private UIManager uiManager;
@@ -73,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
         handleMovement();
         handleRotation();
         handleJumping();
-
+        handleFlashlight();
     }
     #endregion
 
@@ -173,6 +174,12 @@ public class PlayerMovement : MonoBehaviour
             setGameState(playerState.Gameplay);
             Time.timeScale = 1;
         }
+    }
+
+    private void handleFlashlight()
+    {
+        alterCamera.transform.position = new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y - 100, playerCamera.transform.position.z);
+        alterCamera.transform.rotation = playerCamera.transform.rotation;
     }
     #endregion
 }
